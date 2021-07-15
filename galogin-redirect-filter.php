@@ -42,28 +42,19 @@ namespace Stanford\GAL;
  * @return string - actual url with correct hostname
  */
 function ga_login_redirect($redirect_to, $request_from='', $user=null) {
-  console_log( [
-      '$redirect_to'  => $redirect_to
-    , '$request_from' => $request_from
-    , '$user' => $user
-    , 'typeof $user' => is_array( $user ) ? 'array' : 'object'
-  ], 'green' );
-  console_log( $_SERVER );
-
   if ( isset( $_SERVER[ 'HTTP_X_FORWARDED_HOST' ] ) ) {
     $url = parse_url( $redirect_to );
-    console_log( [ 'parse redirect_to' => $url ], 'green');
     $new_url = "{$url['scheme']}://{$_SERVER['HTTP_X_FORWARDED_HOST']}{$url['path']}";
     if ( isset( $url['query'] ) && !empty( $url['query'] ) ) {
       $new_url .= "?{$url['query']}";
     }
-    console_log( [ 'Redirecting to' => $new_url ], 'red' );
     return $new_url;
   }
   return $redirect_to;
 }
-// apply this filter AFTER GA Login's own filter, as we're just massaging the hostname it provides
+// priority 99: apply this filter AFTER GA Login's own filter
 add_filter('login_redirect', 'Stanford\GAL\ga_login_redirect', 99, 3 );
+
 
 /***
  * Debug function that displays $vars in the browser's console.
