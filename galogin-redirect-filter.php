@@ -65,7 +65,7 @@ add_filter('login_redirect', 'Stanford\GAL\ga_login_redirect', 99, 3 );
 function console_log( $vars, $color = 'blue' ) {
   $log_style = "color:{$color};";
   echo "<script>\n";
-  echo "console.log('%c set_gal_login_cookie:', '{$log_style}');\n";
+  echo "console.log('%c ga_login_redirect:', '{$log_style}');\n";
   foreach ( $vars as $name => $value ) {
     echo "console.log('%c - {$name}: " . json_encode( $value ) . "', '{$log_style}');\n";
   }
