@@ -54,21 +54,4 @@ function ga_login_redirect($redirect_to, $request_from='', $user=null) {
 }
 // priority 99: apply this filter AFTER GA Login's own filter
 add_filter('login_redirect', 'Stanford\GAL\ga_login_redirect', 99, 3 );
-
-
-/***
- * Debug function that displays $vars in the browser's console.
- *
- * @param array  $vars  - array of 'Descriptive text' => value
- * @param string $color - what color you want the console message to be
- */
-function console_log( $vars, $color = 'blue' ) {
-  $log_style = "color:{$color};";
-  echo "<script>\n";
-  echo "console.log('%c ga_login_redirect:', '{$log_style}');\n";
-  foreach ( $vars as $name => $value ) {
-    echo "console.log('%c - {$name}: " . json_encode( $value ) . "', '{$log_style}');\n";
-  }
-  echo "</script>\n";
-}
 ?>
